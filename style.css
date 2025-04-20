@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500&family=Nunito+Sans:ital,wght@1,300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'DS-Digital';
+    src: url('https://db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2') format('woff2');
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.calculator {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 
+                0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.display {
+    margin-bottom: 20px;
+    height: 120px;
+    position: relative;
+}
+
+#result {
+    width: 100%;
+    height: 100%;
+    font-family: 'DS-Digital', monospace;
+    font-size: 42px;
+    text-align: right;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    color: #00FFAA;
+    border: none;
+    border-radius: 15px;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+button {
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button.number {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+button.number:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+button.operator {
+    background: rgba(255, 165, 0, 0.8);
+    color: white;
+}
+
+button.operator:hover {
+    background: rgba(255, 165, 0, 1);
+}
+
+button.equals {
+    background: rgba(0, 200, 83, 0.8);
+    color: white;
+    grid-row: span 2;
+}
+
+button.equals:hover {
+    background: rgba(0, 200, 83, 1);
+}
+
+button.clear {
+    background: rgba(255, 69, 58, 0.8);
+    color: white;
+}
+
+button.clear:hover {
+    background: rgba(255, 69, 58, 1);
+}
+
+button.decimal {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+button.decimal:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
+}
+
+.error {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both,
+             pulse 1s ease-in-out 3;
+    border: 2px solid #FF4444;
+}
+
+.button-press {
+    animation: buttonPress 0.2s ease-in-out;
+}
+
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
