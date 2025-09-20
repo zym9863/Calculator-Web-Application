@@ -6,6 +6,18 @@
     box-sizing: border-box;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 @font-face {
     font-family: 'DS-Digital';
     src: url('https://db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2') format('woff2');
@@ -16,108 +28,238 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: linear-gradient(135deg, 
+                #0f2027 0%, 
+                #203a43 50%, 
+                #2c5364 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .calculator {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 
-                0 5px 15px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.15), 
+                rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 
+                0 8px 20px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 60px rgba(0, 255, 170, 0.1);
+    width: 380px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    max-width: 90vw;
+}
+
+/* Add subtle animation for calculator appearance */
+.calculator::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 27px;
+    background: linear-gradient(45deg, 
+                rgba(0, 255, 170, 0.3), 
+                rgba(255, 165, 0, 0.3), 
+                rgba(0, 200, 83, 0.3));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.calculator:hover::before {
+    opacity: 1;
+}
+
+/* Responsive design improvements */
+@media (max-width: 480px) {
+    .calculator {
+        width: 95vw;
+        padding: 20px;
+    }
+    
+    button {
+        padding: 16px;
+        font-size: 18px;
+    }
+    
+    #result {
+        font-size: 38px;
+        padding: 20px;
+    }
+    
+    .buttons {
+        gap: 12px;
+    }
 }
 
 .display {
-    margin-bottom: 20px;
-    height: 120px;
+    margin-bottom: 25px;
+    height: 130px;
     position: relative;
+    background: linear-gradient(145deg, 
+                rgba(0, 0, 0, 0.3), 
+                rgba(0, 0, 0, 0.15));
+    border-radius: 18px;
+    padding: 3px;
 }
 
 #result {
     width: 100%;
     height: 100%;
-    font-family: 'DS-Digital', monospace;
-    font-size: 42px;
+    font-family: 'DS-Digital', 'Courier New', 'Monaco', 'Menlo', monospace;
+    font-size: 45px;
     text-align: right;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    background: linear-gradient(145deg, 
+                rgba(0, 0, 0, 0.4), 
+                rgba(0, 0, 0, 0.2));
     color: #00FFAA;
     border: none;
     border-radius: 15px;
-    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+    box-shadow: inset 0 6px 15px rgba(0, 0, 0, 0.3),
+                inset 0 -2px 8px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 15px rgba(0, 255, 170, 0.5),
+                 0 0 30px rgba(0, 255, 170, 0.2);
+    letter-spacing: 2px;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: 18px;
 }
 
 button {
     border: none;
     outline: none;
-    padding: 15px;
-    font-size: 18px;
+    padding: 18px;
+    font-size: 20px;
     font-weight: 600;
-    border-radius: 12px;
+    border-radius: 16px;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
+                0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
 button.number {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.15), 
+                rgba(255, 255, 255, 0.05));
     color: white;
+    backdrop-filter: blur(10px);
 }
 
 button.number:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.25), 
+                rgba(255, 255, 255, 0.15));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2),
+                0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 button.operator {
-    background: rgba(255, 165, 0, 0.8);
+    background: linear-gradient(145deg, 
+                rgba(255, 165, 0, 0.9), 
+                rgba(255, 140, 0, 0.8));
     color: white;
+    box-shadow: 0 6px 20px rgba(255, 165, 0, 0.3),
+                0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 button.operator:hover {
-    background: rgba(255, 165, 0, 1);
+    background: linear-gradient(145deg, 
+                rgba(255, 180, 0, 1), 
+                rgba(255, 165, 0, 0.9));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 165, 0, 0.4),
+                0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 button.equals {
-    background: rgba(0, 200, 83, 0.8);
+    background: linear-gradient(145deg, 
+                rgba(0, 200, 83, 0.9), 
+                rgba(0, 180, 70, 0.8));
     color: white;
     grid-row: span 2;
+    box-shadow: 0 6px 20px rgba(0, 200, 83, 0.3),
+                0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 button.equals:hover {
-    background: rgba(0, 200, 83, 1);
+    background: linear-gradient(145deg, 
+                rgba(0, 220, 90, 1), 
+                rgba(0, 200, 83, 0.9));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 200, 83, 0.4),
+                0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 button.clear {
-    background: rgba(255, 69, 58, 0.8);
+    background: linear-gradient(145deg, 
+                rgba(255, 69, 58, 0.9), 
+                rgba(255, 45, 32, 0.8));
     color: white;
+    box-shadow: 0 6px 20px rgba(255, 69, 58, 0.3),
+                0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 button.clear:hover {
-    background: rgba(255, 69, 58, 1);
+    background: linear-gradient(145deg, 
+                rgba(255, 85, 70, 1), 
+                rgba(255, 69, 58, 0.9));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 69, 58, 0.4),
+                0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 button.decimal {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.15), 
+                rgba(255, 255, 255, 0.05));
     color: white;
+    backdrop-filter: blur(10px);
 }
 
 button.decimal:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.25), 
+                rgba(255, 255, 255, 0.15));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2),
+                0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 button:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle ripple effect */
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:active::before {
+    width: 300px;
+    height: 300px;
 }
 
 @keyframes shake {
@@ -139,11 +281,20 @@ button:active {
 }
 
 .button-press {
-    animation: buttonPress 0.2s ease-in-out;
+    animation: buttonPress 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes buttonPress {
-    0% { transform: scale(1); }
-    50% { transform: scale(0.95); }
-    100% { transform: scale(1); }
+    0% { 
+        transform: scale(1) translateY(0); 
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+    50% { 
+        transform: scale(0.96) translateY(2px); 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    100% { 
+        transform: scale(1) translateY(0); 
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
 }
